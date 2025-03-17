@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Call</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            padding: 10px;
+            text-align: center;
+            background: #000;
+        }
+
+        .call-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calling-info {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .calling-label {
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .phone-number {
+            font-size: 2.5rem;
+            margin: 10px 0;
+        }
+
+        .button-group {
+            margin-top: auto;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .call-button {
+            background: #333;
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .call-button:hover {
+            background: #444;
+        }
+
+        .end-call {
+            background: #ff3b30;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+        }
+
+        .button-text {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar"></div>
+    
+    <div class="call-container">
+        <div class="calling-info">
+            <div class="calling-label">Calling...</div>
+            <div class="phone-number">0571857590</div>
+        </div>
+
+        <div class="button-group">
+            <div class="button-row">
+                <button class="call-button">
+                    <span>+</span>
+                    <span class="button-text">Add call</span>
+                </button>
+                <button class="call-button">
+                    <span>⎁</span>
+                    <span class="button-text">Hold call</span>
+                </button>
+                <button class="call-button">
+                    <span>♫</span>
+                    <span class="button-text">Bluetooth</span>
+                </button>
+            </div>
+
+            <div class="button-row">
+                <button class="call-button">
+                    <span>🔊</span>
+                    <span class="button-text">Speaker</span>
+                </button>
+                <button class="call-button">
+                    <span>🔇</span>
+                    <span class="button-text">Mute</span>
+                </button>
+                <button class="call-button">
+                    <span>⌨</span>
+                    <span class="button-text">Keypad</span>
+                </button>
+            </div>
+        </div>
+
+        <button class="call-button end-call" onclick="endCall()">⏹</button>
+    </div>
+
+    <script>
+        // Button click handlers
+        document.querySelectorAll('.call-button:not(.end-call)').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.querySelector('.button-text').textContent;
+                alert(`${action} clicked!`);
+            });
+        });
+
+        function endCall() {
+            if(confirm("End call?")) {
+                window.close() || window.history.back();
+            }
+        }
+
+        // Simulate real call duration
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            document.querySelector('.calling-label').textContent = 
+                `Calling... ${Math.floor(seconds/60)}:${(seconds%60).toString().padStart(2, '0')}`;
+        }, 1000);
+    </script>
+</body>
+</html>
